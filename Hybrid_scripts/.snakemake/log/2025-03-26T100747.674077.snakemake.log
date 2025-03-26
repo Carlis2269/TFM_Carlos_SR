@@ -1,0 +1,32 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job                     count
+--------------------  -------
+unicycler_assemblies        1
+total                       1
+
+Select jobs to execute...
+
+[Wed Mar 26 10:07:48 2025]
+rule unicycler_assemblies:
+    input: /mnt/d/Documentos/Sequences/Illumina/Fastp_trimming, /mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming
+    output: /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies
+    jobid: 0
+    reason: Forced execution
+    resources: tmpdir=/tmp
+
+Skipped removing non-empty directory /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies
+ImproperOutputException in rule unicycler_assemblies in file /home/shuri/TFM/Hybrid_scripts/Snakefile, line 1:
+Outputs of incorrect type (directories when expecting files or vice versa). Output directories must be flagged with directory(). for rule unicycler_assemblies:
+    output: /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies
+    affected files:
+        /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies
+Removing output files of failed job unicycler_assemblies since they might be corrupted:
+/mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies
+Skipped removing non-empty directory /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-03-26T100747.674077.snakemake.log

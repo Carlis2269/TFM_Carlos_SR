@@ -1,0 +1,29 @@
+rule nanoplot_quality_check:
+    input:
+        dir="/mnt/d/Documentos/Sequences/Nanopore/Raw_data"
+    output:
+        directory("/mnt/d/Documentos/Sequences/Nanopore/NanoPlot_reports")
+    params:
+        script="run_nanoplot.sh"
+    shell:
+        "bash {params.script} {input.dir} {output[0]}"
+
+rule fastplong_trimming:
+    input:
+        dir="/mnt/d/Documentos/Sequences/Nanopore/Raw_data"
+    output:
+        directory("/mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming")
+    params:
+        script="run_fastplong.sh"
+    shell:
+        "bash {params.script} {input.dir} {output[0]}"
+
+rule unicycler_assemblies:
+    input:
+        dir="/mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming"
+    output:
+        directory("/mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly")
+    params:
+        script="run_unicycler_N.sh"
+    shell:
+        "bash {params.script} {input.dir} {output[0]}"

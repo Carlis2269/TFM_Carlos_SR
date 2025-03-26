@@ -1,0 +1,10 @@
+rule unicycler_assemblies:
+    input:
+        illumina_reads="/mnt/d/Documentos/Sequences/Illumina/Fastp_trimming",
+        nanopore_reads="/mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming"
+    output:
+        directory="/mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies"
+    params:
+        script="run_unicycler_H.sh"
+    shell:
+        "bash {params.script} {input.illumina_reads} {input.nanopore_reads} {output[0]}"
