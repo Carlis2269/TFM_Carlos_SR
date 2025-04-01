@@ -9,5 +9,10 @@ for trimmed_file in "$input_dir"/*_trimmed.fastq; do
     output_subdir="${output_dir}/${base_name}"
     mkdir -p "$output_subdir"
 
-    unicycler -l "$trimmed_file" -o "$output_subdir" --mode bold
+    canu -p "$base_name" -d "$output_subdir" \
+         genomeSize=4m \
+         -nanopore "$trimmed_file" \
+         useGrid=false \
+         maxMemory=6 \
+         maxThreads=8      
 done
