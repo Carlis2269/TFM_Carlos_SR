@@ -1,0 +1,142 @@
+
+Starting Unicycler (2025-03-25 17:08:06)
+----------------------------------------
+    Welcome to Unicycler, an assembly pipeline for bacterial genomes. Since you provided only short reads, Unicycler will essentially function as a SPAdes-optimiser. It will try many k-mer sizes, choose the best based on contig length and graph connectivity, and scaffold the graph using SPAdes repeat resolution.
+    For more information, please see https://github.com/rrwick/Unicycler
+
+Command: /home/shuri/miniconda3/bin/unicycler -1 /mnt/d/Documentos/Sequences/Illumina/Fastp_trimming/44_S44_trimmed_R1.fastq -2 /mnt/d/Documentos/Sequences/Illumina/Fastp_trimming/44_S44_trimmed_R2.fastq -o /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44
+
+Unicycler version: v0.5.1
+Using 8 threads
+
+The output directory already exists:
+  /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44
+
+Dependencies:
+  Program       Version   Status  
+  spades.py     4.1.0     good    
+  racon                   not used
+  makeblastdb   2.5.0+    good    
+  tblastn       2.5.0+    good    
+
+
+Choosing k-mer range for assembly (2025-03-25 17:08:14)
+-------------------------------------------------------
+    Unicycler chooses a k-mer range for SPAdes based on the length of the input reads. It uses a wide range of many k-mer sizes to maximise the chance of finding an ideal assembly.
+
+SPAdes maximum k-mer: 127
+Median read length: 151
+K-mer range: 27, 53, 71, 87, 99, 111, 119, 127
+
+
+SPAdes assemblies (2025-03-25 17:08:20)
+---------------------------------------
+    Unicycler now uses SPAdes to assemble the short reads. It scores the assembly graph for each k-mer using the number of contigs (fewer is better) and the number of dead ends (fewer is better). The score function is 1/(c*(d+2)), where c is the contig count and d is the dead end count.
+
+spades.py -o /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/spades_assembly -k 27 --threads 8 --gfa11 --isolate -1 /mnt/d/Documentos/Sequences/Illumina/Fastp_trimming/44_S44_trimmed_R1.fastq -2 /mnt/d/Documentos/Sequences/Illumina/Fastp_trimming/44_S44_trimmed_R2.fastq -m 1024
+
+spades.py -o /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/spades_assembly -k 27,53 --threads 8 --gfa11 --restart-from k27 -m 1024
+
+spades.py -o /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/spades_assembly -k 27,53,71 --threads 8 --gfa11 --restart-from k53 -m 1024
+
+spades.py -o /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/spades_assembly -k 27,53,71,87 --threads 8 --gfa11 --restart-from k71 -m 1024
+
+spades.py -o /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/spades_assembly -k 27,53,71,87,99 --threads 8 --gfa11 --restart-from k87 -m 1024
+
+spades.py -o /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/spades_assembly -k 27,53,71,87,99,111 --threads 8 --gfa11 --restart-from k99 -m 1024
+
+spades.py -o /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/spades_assembly -k 27,53,71,87,99,111,119 --threads 8 --gfa11 --restart-from k111 -m 1024
+
+spades.py -o /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/spades_assembly -k 27,53,71,87,99,111,119,127 --threads 8 --gfa11 --restart-from k119 -m 1024
+
+K-mer   Contigs   Dead ends   Score   
+   27        29          40   8.21e-04 <-best
+   53        32          49   6.13e-04
+   71        29          48   6.90e-04
+   87        32          54   5.58e-04
+   99        34          58   4.90e-04
+  111        38          70   3.65e-04
+  119        35          64   4.33e-04
+  127        36          66   4.08e-04
+
+Read depth filter: removed 233 contigs totalling 59891 bp
+Deleting /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/spades_assembly/
+
+
+Determining graph multiplicity (2025-03-25 17:18:33)
+----------------------------------------------------
+    Multiplicity is the number of times a sequence occurs in the underlying sequence. Single-copy contigs (those with a multiplicity of one, occurring only once in the underlying sequence) are particularly useful.
+
+Saving /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/002_depth_filter.gfa
+
+
+Cleaning graph (2025-03-25 17:18:33)
+------------------------------------
+    Unicycler now performs various cleaning procedures on the graph to remove overlaps and simplify the graph structure. The end result is a graph ready for bridging.
+
+Graph overlaps removed
+
+Removed zero-length segments:
+    27
+
+Saving /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/003_overlaps_removed.gfa
+
+    Unicycler now selects a set of anchor contigs from the single-copy contigs. These are the contigs which will be connected via bridges to form the final assembly.
+
+18 anchor segments (116,909 bp) out of 28 total segments (122,671 bp)
+
+
+Creating SPAdes contig bridges (2025-03-25 17:18:33)
+----------------------------------------------------
+    SPAdes uses paired-end information to perform repeat resolution (RR) and produce contigs from the assembly graph. SPAdes saves the graph paths corresponding to these contigs in the contigs.paths file. When one of these paths contains two or more anchor contigs, Unicycler can create a bridge from the path.
+
+No SPAdes contig bridges
+
+
+Creating loop unrolling bridges (2025-03-25 17:18:33)
+-----------------------------------------------------
+    When a SPAdes contig path connects an anchor contig with the middle contig of a simple loop, Unicycler concludes that the sequences are contiguous (i.e. the loop is not a separate piece of DNA). It then uses the read depth of the middle and repeat contigs to guess the number of times to traverse the loop and makes a bridge.
+
+No loop unrolling bridges made
+none found
+
+
+Applying bridges (2025-03-25 17:18:33)
+--------------------------------------
+    Unicycler now applies to the graph in decreasing order of quality. This ensures that when multiple, contradictory bridges exist, the most supported option is used.
+
+Bridge type   Start -> end   Path   Quality
+
+Saving /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/004_bridges_applied.gfa
+
+
+Bridged assembly graph (2025-03-25 17:18:33)
+--------------------------------------------
+    The assembly is now mostly finished and no more structural changes will be made. Ideally the assembly graph should now have one contig per replicon and no erroneous contigs (i.e. a complete assembly). If there are more contigs, then the assembly is not complete.
+
+Saving /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/005_final_clean.gfa
+
+Component   Segments   Links   Length    N50      Longest segment   Status    
+    total         17       4   117,302   30,712            41,767             
+        1          3       4    41,845   41,767            41,767   incomplete
+        2          1       0    30,712   30,712            30,712   incomplete
+        3          1       0    10,440   10,440            10,440   incomplete
+        4          1       0     7,358    7,358             7,358   incomplete
+        5          1       0     6,913    6,913             6,913   incomplete
+        6          1       0     4,132    4,132             4,132   incomplete
+        7          1       0     2,480    2,480             2,480   incomplete
+        8          1       0     2,271    2,271             2,271   incomplete
+        9          1       0     2,152    2,152             2,152   incomplete
+       10          1       0     1,648    1,648             1,648   incomplete
+       11          1       0     1,601    1,601             1,601   incomplete
+       12          1       0     1,539    1,539             1,539   incomplete
+       13          1       0     1,519    1,519             1,519   incomplete
+       14          1       0     1,517    1,517             1,517   incomplete
+       15          1       0     1,175    1,175             1,175   incomplete
+
+
+Assembly complete (2025-03-25 17:18:33)
+---------------------------------------
+Saving /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/assembly.gfa
+Saving /mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies/44_S44/assembly.fasta
+

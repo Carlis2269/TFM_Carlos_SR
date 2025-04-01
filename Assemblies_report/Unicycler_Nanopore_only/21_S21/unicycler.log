@@ -1,0 +1,39 @@
+
+Starting Unicycler (2025-03-27 15:32:01)
+----------------------------------------
+    Welcome to Unicycler, an assembly pipeline for bacterial genomes. Since you provided only long reads, Unicycler will assemble the reads with miniasm and then run repeated polishing rounds using Racon.
+    For more information, please see https://github.com/rrwick/Unicycler
+
+Command: /home/shuri/miniconda3/bin/unicycler -l /mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming_Q10/21_S21_trimmed.fastq -o /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/21_S21 --mode normal
+
+Unicycler version: v0.5.1
+Using 8 threads
+
+The output directory already exists:
+  /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/21_S21
+
+Dependencies:
+  Program       Version   Status  
+  spades.py               not used
+  racon         1.5.0     good    
+  makeblastdb   2.5.0+    good    
+  tblastn       2.5.0+    good    
+
+
+Loading reads (2025-03-27 15:32:02)
+-----------------------------------
+1,294 / 1,294 (100.0%) - 2,937,903 bp
+
+
+Assembling contigs and long reads with miniasm (2025-03-27 15:32:02)
+--------------------------------------------------------------------
+Saving to /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/21_S21/miniasm_assembly/01_assembly_reads.fastq:
+  1,294 long reads
+
+Finding overlaps with minimap... 
+success
+  2,661 overlaps
+
+Assembling reads with miniasm... 
+empty result
+Error: miniasm assembly failed

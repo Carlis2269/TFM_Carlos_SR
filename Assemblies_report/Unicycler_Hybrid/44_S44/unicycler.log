@@ -1,0 +1,120 @@
+
+Starting Unicycler (2025-03-26 14:24:17)
+----------------------------------------
+    Welcome to Unicycler, an assembly pipeline for bacterial genomes. Since you provided both short and long reads, Unicycler will perform a hybrid assembly. It will first use SPAdes to make a short-read assembly graph, and then it will use various methods to scaffold that graph with the long reads.
+    For more information, please see https://github.com/rrwick/Unicycler
+
+Command: /home/shuri/miniconda3/bin/unicycler -1 /mnt/d/Documentos/Sequences/Illumina/Fastp_trimming/44_S44_trimmed_R1.fastq -2 /mnt/d/Documentos/Sequences/Illumina/Fastp_trimming/44_S44_trimmed_R2.fastq -l /mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming/44_S44_trimmed.fastq -o /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies/44_S44 --threads 8
+
+Unicycler version: v0.5.1
+Using 8 threads
+
+The output directory already exists:
+  /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies/44_S44
+
+Dependencies:
+  Program       Version   Status
+  spades.py     4.1.0     good  
+  racon         1.5.0     good  
+  makeblastdb   2.5.0+    good  
+  tblastn       2.5.0+    good  
+
+
+Choosing k-mer range for assembly (2025-03-26 14:24:26)
+-------------------------------------------------------
+    Unicycler chooses a k-mer range for SPAdes based on the length of the input reads. It uses a wide range of many k-mer sizes to maximise the chance of finding an ideal assembly.
+
+SPAdes maximum k-mer: 127
+Median read length: 151
+K-mer range: 27, 53, 71, 87, 99, 111, 119, 127
+
+
+SPAdes assemblies (2025-03-26 14:24:32)
+---------------------------------------
+    Unicycler now uses SPAdes to assemble the short reads. It scores the assembly graph for each k-mer using the number of contigs (fewer is better) and the number of dead ends (fewer is better). The score function is 1/(c*(d+2)), where c is the contig count and d is the dead end count.
+
+spades.py -o /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies/44_S44/spades_assembly -k 27 --threads 8 --gfa11 --isolate -1 /mnt/d/Documentos/Sequences/Illumina/Fastp_trimming/44_S44_trimmed_R1.fastq -2 /mnt/d/Documentos/Sequences/Illumina/Fastp_trimming/44_S44_trimmed_R2.fastq -m 1024
+
+spades.py -o /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies/44_S44/spades_assembly -k 27,53 --threads 8 --gfa11 --restart-from k27 -m 1024
+
+spades.py -o /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies/44_S44/spades_assembly -k 27,53,71 --threads 8 --gfa11 --restart-from k53 -m 1024
+
+spades.py -o /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies/44_S44/spades_assembly -k 27,53,71,87 --threads 8 --gfa11 --restart-from k71 -m 1024
+
+spades.py -o /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies/44_S44/spades_assembly -k 27,53,71,87,99 --threads 8 --gfa11 --restart-from k87 -m 1024
+
+spades.py -o /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies/44_S44/spades_assembly -k 27,53,71,87,99,111 --threads 8 --gfa11 --restart-from k99 -m 1024
+
+spades.py -o /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies/44_S44/spades_assembly -k 27,53,71,87,99,111,119 --threads 8 --gfa11 --restart-from k111 -m 1024
+
+spades.py -o /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies/44_S44/spades_assembly -k 27,53,71,87,99,111,119,127 --threads 8 --gfa11 --restart-from k119 -m 1024
+
+K-mer   Contigs   Dead ends   Score   
+   27        29          40   8.21e-04 <-best
+   53        32          49   6.13e-04
+   71        29          48   6.90e-04
+   87        32          54   5.58e-04
+   99        34          58   4.90e-04
+  111        38          70   3.65e-04
+  119        35          64   4.33e-04
+  127        36          66   4.08e-04
+
+Read depth filter: removed 233 contigs totalling 59891 bp
+Deleting /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies/44_S44/spades_assembly/
+
+
+Determining graph multiplicity (2025-03-26 14:35:04)
+----------------------------------------------------
+    Multiplicity is the number of times a sequence occurs in the underlying sequence. Single-copy contigs (those with a multiplicity of one, occurring only once in the underlying sequence) are particularly useful.
+
+Saving /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies/44_S44/002_depth_filter.gfa
+
+
+Cleaning graph (2025-03-26 14:35:04)
+------------------------------------
+    Unicycler now performs various cleaning procedures on the graph to remove overlaps and simplify the graph structure. The end result is a graph ready for bridging.
+
+Graph overlaps removed
+
+Removed zero-length segments:
+    27
+
+Saving /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies/44_S44/003_overlaps_removed.gfa
+
+    Unicycler now selects a set of anchor contigs from the single-copy contigs. These are the contigs which will be connected via bridges to form the final assembly.
+
+18 anchor segments (116,909 bp) out of 28 total segments (122,671 bp)
+
+
+Creating SPAdes contig bridges (2025-03-26 14:35:04)
+----------------------------------------------------
+    SPAdes uses paired-end information to perform repeat resolution (RR) and produce contigs from the assembly graph. SPAdes saves the graph paths corresponding to these contigs in the contigs.paths file. When one of these paths contains two or more anchor contigs, Unicycler can create a bridge from the path.
+
+No SPAdes contig bridges
+
+
+Creating loop unrolling bridges (2025-03-26 14:35:04)
+-----------------------------------------------------
+    When a SPAdes contig path connects an anchor contig with the middle contig of a simple loop, Unicycler concludes that the sequences are contiguous (i.e. the loop is not a separate piece of DNA). It then uses the read depth of the middle and repeat contigs to guess the number of times to traverse the loop and makes a bridge.
+
+No loop unrolling bridges made
+none found
+
+
+Loading reads (2025-03-26 14:35:04)
+-----------------------------------
+183,365 / 183,365 (100.0%) - 682,711,498 bp
+
+
+Assembling contigs and long reads with miniasm (2025-03-26 14:36:15)
+--------------------------------------------------------------------
+    Unicycler uses miniasm to construct a string graph assembly using both the short read contigs and the long reads. It will then use the resulting string graph to produce bridges between contigs. This method requires decent coverage of long reads and therefore may not be fruitful if long reads are sparse. However, it does not rely on the short read assembly graph having good connectivity and is able to bridge an assembly graph even when it contains many dead ends.
+    Unicycler uses two types of "reads" as assembly input: anchor contigs from the short-read assembly and actual long reads which overlap two or more of these contigs. It then assembles them with miniasm.
+
+Aligning long reads to graph using minimap
+
+Saving to /mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies/44_S44/miniasm_assembly/01_assembly_reads.fastq:
+  15 short-read contigs
+  18,427 long reads
+
+Finding overlaps with minimap... 

@@ -1,0 +1,79 @@
+
+Starting Unicycler (2025-03-27 15:38:18)
+----------------------------------------
+    Welcome to Unicycler, an assembly pipeline for bacterial genomes. Since you provided only long reads, Unicycler will assemble the reads with miniasm and then run repeated polishing rounds using Racon.
+    For more information, please see https://github.com/rrwick/Unicycler
+
+Command: /home/shuri/miniconda3/bin/unicycler -l /mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming_Q10/2_S2_trimmed.fastq -o /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/2_S2 --mode normal
+
+Unicycler version: v0.5.1
+Using 8 threads
+
+The output directory already exists:
+  /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/2_S2
+
+Dependencies:
+  Program       Version   Status  
+  spades.py               not used
+  racon         1.5.0     good    
+  makeblastdb   2.5.0+    good    
+  tblastn       2.5.0+    good    
+
+
+Loading reads (2025-03-27 15:38:18)
+-----------------------------------
+11,196 / 11,196 (100.0%) - 51,745,924 bp
+
+
+Assembling contigs and long reads with miniasm (2025-03-27 15:38:24)
+--------------------------------------------------------------------
+Saving to /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/2_S2/miniasm_assembly/01_assembly_reads.fastq:
+  11,196 long reads
+
+Finding overlaps with minimap... 
+success
+  12,835,132 overlaps
+
+Assembling reads with miniasm... 
+success
+  45 segments, 45 links
+
+Saving /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/2_S2/miniasm_assembly/11_branching_paths_removed.gfa
+Merging segments into unitigs:
+  1 circular unitig
+  total size = 43,330 bp
+Saving /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/2_S2/miniasm_assembly/12_unitig_graph.gfa
+Saving /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/2_S2/002_unitig_graph.gfa
+
+
+Polishing miniasm assembly with Racon (2025-03-27 15:42:31)
+-----------------------------------------------------------
+    Unicycler now uses Racon to polish the miniasm assembly. It does multiple rounds of polishing to get the best consensus. Circular unitigs are rotated between rounds such that all parts (including the ends) are polished well.
+
+Saving to /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/2_S2/miniasm_assembly/racon_polish/polishing_reads.fastq:
+  11,196 long reads
+
+Polish       Assembly          Mapping
+round            size          quality
+begin          43,330        10,388.38
+1              43,460        11,505.53
+2              43,470        11,621.36
+3              43,470        11,359.77
+
+Best polish: /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/2_S2/miniasm_assembly/racon_polish/011_rotated.fasta
+Saving /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/2_S2/miniasm_assembly/13_racon_polished.gfa
+Saving /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/2_S2/003_racon_polished.gfa
+
+
+Rotating completed replicons (2025-03-27 15:45:11)
+--------------------------------------------------
+    Any completed circular contigs (i.e. single contigs which have one link connecting end to start) can have their start position changed without altering the sequence. For consistency, Unicycler now searches for a starting gene (dnaA or repA) in each such contig, and if one is found, the contig is rotated to start with that gene on the forward strand.
+
+Segment   Length   Depth   Starting gene   Position   Strand   Identity   Coverage
+      1   43,470   1.00x   none found                                             
+
+
+Assembly complete (2025-03-27 15:45:42)
+---------------------------------------
+Saving /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/2_S2/assembly.gfa
+

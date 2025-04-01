@@ -1,0 +1,71 @@
+
+Starting Unicycler (2025-03-27 15:32:04)
+----------------------------------------
+    Welcome to Unicycler, an assembly pipeline for bacterial genomes. Since you provided only long reads, Unicycler will assemble the reads with miniasm and then run repeated polishing rounds using Racon.
+    For more information, please see https://github.com/rrwick/Unicycler
+
+Command: /home/shuri/miniconda3/bin/unicycler -l /mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming_Q10/22_S22_trimmed.fastq -o /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/22_S22 --mode normal
+
+Unicycler version: v0.5.1
+Using 8 threads
+
+The output directory already exists:
+  /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/22_S22
+
+Dependencies:
+  Program       Version   Status  
+  spades.py               not used
+  racon         1.5.0     good    
+  makeblastdb   2.5.0+    good    
+  tblastn       2.5.0+    good    
+
+
+Loading reads (2025-03-27 15:32:04)
+-----------------------------------
+13,075 / 13,075 (100.0%) - 13,395,990 bp
+
+
+Assembling contigs and long reads with miniasm (2025-03-27 15:32:06)
+--------------------------------------------------------------------
+Saving to /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/22_S22/miniasm_assembly/01_assembly_reads.fastq:
+  13,075 long reads
+
+Finding overlaps with minimap... 
+success
+  3,983,095 overlaps
+
+Assembling reads with miniasm... 
+success
+  48 segments, 47 links
+
+Saving /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/22_S22/miniasm_assembly/11_branching_paths_removed.gfa
+Merging segments into unitigs:
+  1 linear unitig
+  total size = 42,851 bp
+Saving /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/22_S22/miniasm_assembly/12_unitig_graph.gfa
+Saving /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/22_S22/002_unitig_graph.gfa
+
+
+Polishing miniasm assembly with Racon (2025-03-27 15:32:47)
+-----------------------------------------------------------
+    Unicycler now uses Racon to polish the miniasm assembly. It does multiple rounds of polishing to get the best consensus. Circular unitigs are rotated between rounds such that all parts (including the ends) are polished well.
+
+Saving to /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/22_S22/miniasm_assembly/racon_polish/polishing_reads.fastq:
+  13,075 long reads
+
+Polish       Assembly          Mapping
+round            size          quality
+begin          42,851        14,575.46
+1              42,032        15,839.74
+2              41,263        15,753.30
+3              40,615        15,583.10
+
+Best polish: /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/22_S22/miniasm_assembly/racon_polish/006_rotated.fasta
+Saving /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/22_S22/miniasm_assembly/13_racon_polished.gfa
+Saving /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/22_S22/003_racon_polished.gfa
+
+
+Assembly complete (2025-03-27 15:33:15)
+---------------------------------------
+Saving /mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q10/22_S22/assembly.gfa
+
