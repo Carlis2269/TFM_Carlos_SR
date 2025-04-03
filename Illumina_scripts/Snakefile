@@ -27,3 +27,13 @@ rule unicycler_assemblies:
         script="run_unicycler_I.sh"
     shell:
         "bash {params.script} {input.trimmed_dir} {output[0]}"
+
+rule blastn:
+    input:
+        fasta_dir="/mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies"
+    output:
+        directory("/mnt/d/Documentos/Sequences/Illumina/Blast_results")
+    params:
+        script="run_blastn.sh"
+    shell:
+        "bash {params.script} {input.fasta_dir} {output[0]}"
