@@ -1,0 +1,22 @@
+echo "*.fastq" >> .gitignore
+echo "*.bam" >> .gitignore
+echo "*.sam" >> .gitignore
+echo "*.csv" >> .gitignore
+echo "*.log" >> .gitignore
+echo "*.snakemake" >> .gitignore
+echo "*.bash_history" >> .gitignore
+echo "*.bash_logout" >> .gitignore
+echo "*.bashrc" >> .gitignore
+echo "*.condarc" >> .gitignore
+echo "*.gitconfig" >> .gitignore
+echo "*.lesshst" >> .gitignore
+echo "*.motd_shown" >> .gitignore
+echo "*.profile" >> .gitignore
+echo "*.python_history" >> .gitignore
+echo "*.motd_shown" >> .gitignore
+echo "*.snakemake/" >> .gitignore
+echo "*.snakemake/log" >> .gitignore
+echo "*.snakemake/metadata" >> .gitignore
+echo "*.snakemake/incomplete" >> .gitignore
+
+
