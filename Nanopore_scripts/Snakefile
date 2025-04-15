@@ -37,3 +37,13 @@ rule canu_assembly:
         script="run_canu.sh"
     shell:
         "bash {params.script} {input.nanopore_dir} {output[0]}"
+
+rule flye_assembly:
+    input:
+        nanopore_dir="/mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming_Q10"
+    output:
+        directory("/mnt/d/Documentos/Sequences/Nanopore/Flye_assembly_Q10")
+    params:
+        script="run_flye.sh"
+    shell:
+        "bash {params.script} {input.nanopore_dir} {output[0]}"
