@@ -18,3 +18,13 @@ rule blastn_all_vs_all:
         script="run_all_vs_all_blast.sh"
     shell:
         "bash {params.script} {input.fasta_dir} {output[0]}"
+
+rule align_sequences:
+    input:
+        base_dir="/mnt/d/Documentos/Sequences"
+    output:
+        directory("/mnt/d/Documentos/Sequences/Minimap_alignments")
+    params:
+        script="run_minimap_samtools.sh"
+    shell:
+        "bash {params.script} {input.base_dir} {output}"
