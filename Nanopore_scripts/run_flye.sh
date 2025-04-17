@@ -12,5 +12,5 @@ for trimmed_file in "$input_dir"/*_trimmed.fastq; do
     flye --nano-raw "$trimmed_file" \
          --out-dir "$output_subdir" \
          --threads 8 \
-         --genome-size 5m \
+         --genome-size 5m
 done
