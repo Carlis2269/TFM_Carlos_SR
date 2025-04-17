@@ -8,3 +8,13 @@ rule unicycler_assemblies:
         script="run_unicycler_H.sh"
     shell:
         "bash {params.script} {input.illumina_reads} {input.nanopore_reads} {output[0]}"
+
+rule blastn_all_vs_all:
+    input:
+        fasta_dir="/mnt/d/Documentos/PhageSeq2024/R_figures/All_sequences"
+    output:
+        directory("/mnt/d/Documentos/PhageSeq2024/R_figures/Blast_results/All_sequences")
+    params:
+        script="run_all_vs_all_blast.sh"
+    shell:
+        "bash {params.script} {input.fasta_dir} {output[0]}"
