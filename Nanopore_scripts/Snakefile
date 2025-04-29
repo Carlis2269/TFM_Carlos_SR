@@ -8,6 +8,16 @@ rule nanoplot_quality_check:
     shell:
         "bash {params.script} {input.dir} {output[0]}"
 
+rule porechop_trimming:
+    input:
+        dir="/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Raw_data"
+    output:
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Porechop_trimming")
+    params:
+        script="run_porechop.sh"
+    shell:
+        "bash {params.script} {input.dir} {output[0]}"
+        
 rule fastplong_trimming:
     input:
         dir="/mnt/d/Documentos/Sequences/Nanopore/Raw_data"
