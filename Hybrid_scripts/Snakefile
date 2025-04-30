@@ -8,3 +8,23 @@ rule unicycler_assemblies:
         script="run_unicycler_H.sh"
     shell:
         "bash {params.script} {input.illumina_reads} {input.nanopore_reads} {output[0]}"
+
+rule blast_vs_hybrid:
+    input:
+        fasta_dir="/mnt/d/Documentos/Sequences/Alignments/Seq_4_alignment"
+    output:
+        directory("/mnt/d/Documentos/Sequences/Alignments/Blast_results")
+    params:
+        script="run_blastn_ref.sh"
+    shell:
+        "bash {params.script} {input.fasta_dir} {output}"
+
+rule align_sequences:
+    input:
+        base_dir="/mnt/d/Documentos/Sequences"
+    output:
+        directory("/mnt/d/Documentos/Sequences/Minimap_alignments")
+    params:
+        script="run_minimap_samtools.sh"
+    shell:
+        "bash {params.script} {input.base_dir} {output}"
