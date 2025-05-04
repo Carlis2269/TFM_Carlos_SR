@@ -19,9 +19,9 @@ for dir in "$input_base_dir"/*; do # Check each subdirectory
 
             awk -v sample="$base_name" '/^>/{header++ ; print ">"sample"_contig"header; next} 1' "$input_fasta" > "$renamed_fasta" # Rename the sequences in the assembly.fasta file
 
-            echo "Ejecutando BLAST para $base_name..."
+            echo "Ejecutando BLAST para $base_name..." 
 
-            # Run BLAST
+            # Perform BLAST search
 
             blastn -query "$renamed_fasta" -db "$blast_db_path" \
                 -out "$output_file" \
@@ -34,3 +34,5 @@ for dir in "$input_base_dir"/*; do # Check each subdirectory
         fi
     fi
 done
+
+touch "$output_base_dir/completed.flag"

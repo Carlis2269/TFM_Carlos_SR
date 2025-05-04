@@ -1,30 +1,30 @@
-rule unicycler_assemblies:
-    input:
-        illumina_reads="/mnt/d/Documentos/Sequences/Illumina/Fastp_trimming",
-        nanopore_reads="/mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming"
-    output:
-        directory="/mnt/d/Documentos/Sequences/Hybrid/unicycler_assemblies"
-    params:
-        script="run_unicycler_H.sh"
-    shell:
-        "bash {params.script} {input.illumina_reads} {input.nanopore_reads} {output[0]}"
-
 rule blast_vs_hybrid:
     input:
-        fasta_dir="/mnt/d/Documentos/Sequences/Alignments/Seq_4_alignment"
+        fasta_dir="/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment"
     output:
-        directory("/mnt/d/Documentos/Sequences/Alignments/Blast_results")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Blast_results")
     params:
         script="run_blastn_ref.sh"
     shell:
         "bash {params.script} {input.fasta_dir} {output}"
 
-rule align_sequences:
+rule blastn:
     input:
-        base_dir="/mnt/d/Documentos/Sequences"
+        fasta_dir="/mnt/c/Users/Carlos/Documents/Sequences/Hybrid/Unicycler_assemblies"
     output:
-        directory("/mnt/d/Documentos/Sequences/Minimap_alignments")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Hybrid/Blast_results")
     params:
-        script="run_minimap_samtools.sh"
+        script="run_blastn.sh"
     shell:
-        "bash {params.script} {input.base_dir} {output}"
+        "bash {params.script} {input.fasta_dir} {output[0]}"
+
+rule unicycler_assemblies:
+    input:
+        illumina_reads="/mnt/c/Users/Carlos/Documents/Sequences/Illumina/Fastp_trimming",
+        nanopore_reads="/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Fastplong_Porechop_trimming_Q10"
+    output:
+        directory="/mnt/c/Users/Carlos/Documents/Sequences/Hybrid/unicycler_assemblies"
+    params:
+        script="run_unicycler_H.sh"
+    shell:
+        "bash {params.script} {input.illumina_reads} {input.nanopore_reads} {output[0]}"

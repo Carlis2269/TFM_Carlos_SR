@@ -10,8 +10,8 @@ for forward_file in "$input_dir"/*.fastq; do
     report_file="${output_dir}/${base_name}_report.html"
 
     fastplong -i "$forward_file" -o "$output_file" \
-        --cut_front --cut_front_window_size 10 --cut_front_mean_quality 6 \
-        --cut_tail --cut_tail_window_size 10 --cut_tail_mean_quality 6 \
-        --length_required 200 --qualified_quality_phred 6 --unqualified_percent_limit 40 \
+        --cut_front --cut_front_window_size 10 --cut_front_mean_quality 10 \
+        --cut_tail --cut_tail_window_size 10 --cut_tail_mean_quality 10 \
+        --length_required 200 --qualified_quality_phred 10 --unqualified_percent_limit 40 \
         --html "$report_file"
 done

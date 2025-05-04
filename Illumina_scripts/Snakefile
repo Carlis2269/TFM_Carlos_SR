@@ -1,38 +1,8 @@
-rule fastqc_quality_check:
-    input:
-        dir="/mnt/d/Documentos/Sequences/Illumina/Raw_data"
-    output:
-        directory("/mnt/d/Documentos/Sequences/Illumina/FastQC_reports")
-    params:
-        script="run_fastqc.sh"
-    shell:
-        "bash {params.script} {input.dir} {output[0]}"
-
-rule fastp_trimming:
-    input:
-        dir="/mnt/d/Documentos/Sequences/Illumina/Raw_data"
-    output:
-        directory("/mnt/d/Documentos/Sequences/Illumina/Fastp_trimming")
-    params:
-        script="run_fastp.sh"
-    shell:
-        "bash {params.script} {input.dir} {output[0]}"
-
-rule unicycler_assemblies:
-    input:
-        trimmed_dir="/mnt/d/Documentos/Sequences/Illumina/Fastp_trimming"
-    output:
-        directory("/mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies")
-    params:
-        script="run_unicycler_I.sh"
-    shell:
-        "bash {params.script} {input.trimmed_dir} {output[0]}"
-
 rule blastn:
     input:
-        fasta_dir="/mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies"
+        fasta_dir="/mnt/c/Users/Carlos/Documents/Sequences/Illumina/Unicycler_assemblies"
     output:
-        directory("/mnt/d/Documentos/Sequences/Illumina/Blast_results")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Illumina/Blast_results")
     params:
         script="run_blastn.sh"
     shell:

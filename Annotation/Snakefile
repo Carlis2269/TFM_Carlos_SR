@@ -1,0 +1,71 @@
+rule phold:
+    input:
+        gbk_dir="/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Pharokka"
+    output:
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Phold")
+    params:
+        script="run_phold.sh"
+    shell:
+        "bash {params.script} {input.gbk_dir} {output[0]}"
+
+rule pharokka:
+    input:
+        fasta_dir="/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Seq_4_annot"
+    output:
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Pharokka")
+    params:
+        script="run_pharokka.sh"
+    shell:
+        "bash {params.script} {input.fasta_dir} {output[0]}"
+
+rule prodigal:
+    input:
+        fasta_dir="/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Seq_4_annot"
+    output:
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Prodigal")
+    params:
+        script="run_prodigal.sh"
+    shell:
+        "bash {params.script} {input.fasta_dir} {output[0]}"
+
+rule phanotate:
+    input:
+        fasta_dir="/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Seq_4_annot"
+    output:
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Phanotate")
+    params:
+        script="run_phanotate.sh"
+    shell:
+        "bash {params.script} {input.fasta_dir} {output[0]}"
+
+rule prokka:
+    input:
+        fasta_dir="/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Seq_4_annot"
+    output:
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Prokka")
+    params:
+        script="run_prokka.sh"
+    shell:
+        "bash {params.script} {input.fasta_dir} {output[0]}"
+
+rule prodigal_blast:
+    input:
+        fasta_dir="/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Seq_4_annot"
+    output:
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Prodigal_Blast")
+    params:
+        script="run_prodigal_blast.sh"
+    shell:
+        "bash {params.script} {input.fasta_dir} {output[0]}"
+
+rule analyze_gffs:
+    input:
+        annotators_dir = "/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Results"
+    output:
+        "/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Results/summary_cds.csv"
+    params:
+        script="metrics.py"
+    shell:
+        "python {params.script} {input.annotators_dir} {output}"
+
+

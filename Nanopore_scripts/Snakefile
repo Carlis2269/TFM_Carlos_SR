@@ -1,59 +1,9 @@
-rule nanoplot_quality_check:
+rule blastn:
     input:
-        dir="/mnt/d/Documentos/Sequences/Nanopore/Raw_data"
+        fasta_dir="/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Canu_Q10"
     output:
-        directory("/mnt/d/Documentos/Sequences/Nanopore/NanoPlot_reports")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Blast_results")
     params:
-        script="run_nanoplot.sh"
+        script="run_blastn.sh"
     shell:
-        "bash {params.script} {input.dir} {output[0]}"
-
-rule porechop_trimming:
-    input:
-        dir="/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Raw_data"
-    output:
-        directory("/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Porechop_trimming")
-    params:
-        script="run_porechop.sh"
-    shell:
-        "bash {params.script} {input.dir} {output[0]}"
-        
-rule fastplong_trimming:
-    input:
-        dir="/mnt/d/Documentos/Sequences/Nanopore/Raw_data"
-    output:
-        directory("/mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming_Q6")
-    params:
-        script="run_fastplong.sh"
-    shell:
-        "bash {params.script} {input.dir} {output[0]}"
-
-rule unicycler_assemblies:
-    input:
-        dir="/mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming_Q6"
-    output:
-        directory("/mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q6")
-    params:
-        script="run_unicycler_N.sh"
-    shell:
-        "bash {params.script} {input.dir} {output[0]}"
-
-rule canu_assembly:
-    input:
-        nanopore_dir="/mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming_Q10"
-    output:
-        directory("/mnt/d/Documentos/Sequences/Nanopore/Canu_assembly_Q10")
-    params:
-        script="run_canu.sh"
-    shell:
-        "bash {params.script} {input.nanopore_dir} {output[0]}"
-
-rule flye_assembly:
-    input:
-        nanopore_dir="/mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming_Q10"
-    output:
-        directory("/mnt/d/Documentos/Sequences/Nanopore/Flye_assembly_Q10")
-    params:
-        script="run_flye.sh"
-    shell:
-        "bash {params.script} {input.nanopore_dir} {output[0]}"
+        "bash {params.script} {input.fasta_dir} {output[0]}"
