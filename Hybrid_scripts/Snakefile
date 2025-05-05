@@ -1,8 +1,8 @@
 rule blast_vs_hybrid:
     input:
-        fasta_dir="/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment"
+        fasta_dir="/mnt/d/Documentos/Sequences/Alignments/Seq_4_alignment_reordered"
     output:
-        directory("/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Blast_results")
+        directory("/mnt/d/Documentos/Sequences/Alignments/Blast_results_reordered")
     params:
         script="run_blastn_ref.sh"
     shell:
@@ -28,3 +28,13 @@ rule unicycler_assemblies:
         script="run_unicycler_H.sh"
     shell:
         "bash {params.script} {input.illumina_reads} {input.nanopore_reads} {output[0]}"
+
+rule dnaapler_phage:
+    input:
+        fasta_dir="/mnt/d/Documentos/Sequences/Alignments/Seq_4_alignment"
+    output:
+        directory("/mnt/d/Documentos/Sequences/Alignments/Dnaapler_reordered")
+    params:
+        script="run_dnaapler.sh"
+    shell:
+        "bash {params.script} {input.fasta_dir} {output}"
