@@ -20,7 +20,7 @@ for bam_file in "$bam_dir"/*.bam; do # Loop through each BAM file
     echo "Procesando $sample_tech (comparando con $ref_file)"
 
     bcftools mpileup -f "$ref_file" "$bam_file" | \
-        bcftools call -mv -Oz -o "$vcf_out" # Call variants and compress the VCF file
+        bcftools call -mv -Ob -o "$vcf_out" # Call variants and compress the VCF file
     bcftools index "$vcf_out" # Index the VCF file
 
     samtools depth -a "$bam_file" > "$depth_out" # Calculate depth of coverage

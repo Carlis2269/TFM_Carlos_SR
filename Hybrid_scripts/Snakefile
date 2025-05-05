@@ -1,10 +1,32 @@
-rule blast_vs_hybrid:
+rule vcf_metrics:
+    input:
+        vcf_dir="/mnt/d/Documentos/Sequences/Alignments/Variants_and_Coverage_reordered/Variants",
+        coverage_dir="/mnt/d/Documentos/Sequences/Alignments/Variants_and_Coverage_reordered/Coverage"
+    output:
+        "/mnt/d/Documentos/Sequences/Alignments/vcf_metrics.csv"
+    params:
+        script="vcf_metrics.py"
+    shell:
+        "python {params.script} {input.vcf_dir} {input.coverage_dir} {output}"
+
+rule bcftools_vcf:
+    input:
+        bam_dir="/mnt/d/Documentos/Sequences/Alignments/Minimap_alignment_reordered",
+        ref_dir="/mnt/d/Documentos/Sequences/Alignments/Seq_4_alignment_reordered"
+    output:
+        directory("/mnt/d/Documentos/Sequences/Alignments/Variants_and_Coverage_reordered")
+    params:
+        script="run_bcf_sam_tools.sh"
+    shell:
+        "bash {params.script} {input.bam_dir} {input.ref_dir} {output}"
+
+rule minimap_alignment:
     input:
         fasta_dir="/mnt/d/Documentos/Sequences/Alignments/Seq_4_alignment_reordered"
     output:
-        directory("/mnt/d/Documentos/Sequences/Alignments/Blast_results_reordered")
+        directory("/mnt/d/Documentos/Sequences/Alignments/Minimap_alignment_reordered")
     params:
-        script="run_blastn_ref.sh"
+        script="run_minimap.sh"
     shell:
         "bash {params.script} {input.fasta_dir} {output}"
 
@@ -38,3 +60,24 @@ rule dnaapler_phage:
         script="run_dnaapler.sh"
     shell:
         "bash {params.script} {input.fasta_dir} {output}"
+
+rule blast_vs_hybrid:
+    input:
+        fasta_dir="/mnt/d/Documentos/Sequences/Alignments/Seq_4_alignment_reordered"
+    output:
+        directory("/mnt/d/Documentos/Sequences/Alignments/Blast_results_reordered")
+    params:
+        script="run_blastn_ref.sh"
+    shell:
+        "bash {params.script} {input.fasta_dir} {output}"
+
+rule vcf_stats:
+    input:
+        vcf_dir="/mnt/d/Documentos/Sequences/Alignments/Variants_and_Coverage_reordered/Variants",
+        ref_dir="/mnt/d/Documentos/Sequences/Alignments/Seq_4_alignment_reordered"
+    output:
+        directory("/mnt/d/Documentos/Sequences/Alignments/VCF_Stats")
+    params:
+        script="run_vcfstats.sh"
+    shell:
+        "bash {params.script} {input.vcf_dir} {input.ref_dir} {output}"

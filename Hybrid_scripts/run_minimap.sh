@@ -18,7 +18,7 @@ for ref_file in "$seq_dir"/Hybrid_assembly_*.fasta; do # Loop through each refer
             bam_out="$output_dir/${sample_id}_${tech}.bam" # Output BAM file
 
             minimap2 -a "$ref_file" "$query_file" > "$sam_out" # Run minimap2 to align the query to the reference
-            samtools view -Sb "$sam_out" | samtools sort -o "$bam_out" # Convert SAM to sorted BAM
+            samtools view -S -b "$sam_out" | samtools sort -o "$bam_out" # Convert SAM to sorted BAM
             samtools index "$bam_out" # Index the BAM file
         else
             echo "Archivo faltante: $query_file"
