@@ -1,8 +1,8 @@
 rule fastqc_quality_check:
     input:
-        dir="/mnt/d/Documentos/Sequences/Illumina/Raw_data"
+        dir="/mnt/c/Users/Carlos/Documents/Sequences/Illumina/Raw_data"
     output:
-        directory("/mnt/d/Documentos/Sequences/Illumina/FastQC_reports")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Illumina/FastQC_reports")
     params:
         script="run_fastqc.sh"
     shell:
@@ -10,9 +10,9 @@ rule fastqc_quality_check:
 
 rule fastp_trimming:
     input:
-        dir="/mnt/d/Documentos/Sequences/Illumina/Raw_data"
+        dir="/mnt/c/Users/Carlos/Documents/Sequences/Illumina/Raw_data"
     output:
-        directory("/mnt/d/Documentos/Sequences/Illumina/Fastp_trimming")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Illumina/Fastp_trimming")
     params:
         script="run_fastp.sh"
     shell:
@@ -20,9 +20,9 @@ rule fastp_trimming:
 
 rule unicycler_assemblies:
     input:
-        trimmed_dir="/mnt/d/Documentos/Sequences/Illumina/Fastp_trimming"
+        trimmed_dir="/mnt/c/Users/Carlos/Documents/Sequences/Illumina/Fastp_trimming"
     output:
-        directory("/mnt/d/Documentos/Sequences/Illumina/Unicycler_assemblies")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Illumina/Unicycler_assemblies")
     params:
         script="run_unicycler_I.sh"
     shell:

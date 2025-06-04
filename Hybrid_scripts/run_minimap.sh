@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script aligns sequencing data from different technologies (Illumina and ONT) against a hybrid assembly reference using minimap2.
+
 seq_dir=$1 # Directory containing the sequence files
 output_dir=$2 # Directory to store the output files
 

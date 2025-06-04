@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script processes BAM files to call variants and calculate coverage.
+
 bam_dir=$1 # Directory containing BAM files
 ref_dir=$2 # Directory containing reference FASTA files
 output_dir=$3 # Directory to store output files

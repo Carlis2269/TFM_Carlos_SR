@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script performs a BLAST search on assembly.fasta files located in subdirectories of a specified input directory.
+
 input_base_dir=$1 # Directory containing subdirectories with assembly.fasta files
 output_base_dir=$2 # Directory to store BLAST results
 

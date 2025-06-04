@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script runs Pharokka on all FASTA files in a specified input directory.
+
 input_dir=$1 # Directory containing input FASTA files
 output_dir=$2 # Directory to save output files
 db_dir=/home/shuri/TFM_Carlos_SR/Annotation/pharokka_db # Directory containing the pharokka database

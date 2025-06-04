@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script runs dnaapler on all FASTA files in a specified input directory to reorder phage genomes.
+
 input_dir=$1 # Directory containing the input FASTA files
 output_dir=$2 # Directory to save the output files
 

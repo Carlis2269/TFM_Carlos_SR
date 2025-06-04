@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script runs BLASTn on assembly.fasta files located in subdirectories of a specified input directory.
+
 input_base_dir=$1 # Path to the directory containing subdirectories with contigs.fasta files
 output_base_dir=$2 # Path to the directory where you want to save the results
 
@@ -22,6 +24,7 @@ for dir in "$input_base_dir"/*; do # Loop through each subdirectory in the input
             echo "Ejecutando BLAST para $base_name..."
 
             # Run BLAST
+
             blastn -query "$renamed_fasta" -db "$blast_db_path" \
                 -out "$output_file" \
                 -outfmt "6 qacc ssciname sacc pident qcovs length evalue" \

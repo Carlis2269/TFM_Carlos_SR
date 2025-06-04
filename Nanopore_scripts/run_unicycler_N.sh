@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script runs Unicycler on a set of trimmed fastq files.
+# When used with the ONT data alone, it assembles the reads using a Miniasm + Racon pipeline.
+
 input_dir=$1 # Directory containing trimmed fastq files
 output_dir=$2 # Directory to store Unicycler output
 mkdir -p "$output_dir" # Create output directory if it doesn't exist

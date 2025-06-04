@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script runs Phold on all GenBank files in a specified directory.
+
 input_dir=$1 # Directory containing GenBank files
 output_dir=$2 # Directory to store output
 

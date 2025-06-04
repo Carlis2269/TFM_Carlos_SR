@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# This script performs quality trimming of paired-end FASTQ files using fastp.
+# It processes all files in the specified input directory that match the pattern *_R1.fastq
+# and generates trimmed output files along with an HTML report for each pair.
+
 input_dir=$1 # Directory containing the input FASTQ files
 output_dir=$2 # Directory to save the trimmed output files
 mkdir -p "$output_dir" # Create the output directory if it doesn't exist

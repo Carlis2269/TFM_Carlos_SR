@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script generates plots for each FASTQ file in the specified directory using NanoPlot.
+# It also creates a html report for each sample.
+
 input_dir=$1 # Directory containing FASTQ files
 output_dir=$2 # Directory to save plots
 mkdir -p "$output_dir" # Create output directory if it doesn't exist

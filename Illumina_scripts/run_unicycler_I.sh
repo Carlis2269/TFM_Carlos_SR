@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script runs Unicycler for each pair of trimmed FASTQ files in a specified directory.
+# When used with the Illumina data alone, it assembles the reads using an optimised SPAdes pipeline.
+
 input_dir=$1 # Directory containing the trimmed FASTQ files
 output_dir=$2 # Directory to store the Unicycler assembly results
 mkdir -p "$output_dir" # Create the output directory if it doesn't exist

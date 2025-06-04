@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script trim FASTQ files using Porechop.
+
 input_dir=$1 # Directory containing the input FASTQ files
 output_dir=$2 # Directory to save the trimmed output files
 mkdir -p "$output_dir" # Create the output directory if it doesn't exist

@@ -1,8 +1,8 @@
 rule nanoplot_quality_check:
     input:
-        dir="/mnt/d/Documentos/Sequences/Nanopore/Raw_data"
+        dir="/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Raw_data"
     output:
-        directory("/mnt/d/Documentos/Sequences/Nanopore/NanoPlot_reports")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/NanoPlot_reports")
     params:
         script="run_nanoplot.sh"
     shell:
@@ -20,9 +20,9 @@ rule porechop_trimming:
         
 rule fastplong_trimming:
     input:
-        dir="/mnt/d/Documentos/Sequences/Nanopore/Raw_data"
+        dir="/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Raw_data"
     output:
-        directory("/mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming_Q6")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Fastplong_trimming_Q6")
     params:
         script="run_fastplong.sh"
     shell:
@@ -30,9 +30,9 @@ rule fastplong_trimming:
 
 rule unicycler_assemblies:
     input:
-        dir="/mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming_Q6"
+        dir="/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Fastplong_trimming_Q6"
     output:
-        directory("/mnt/d/Documentos/Sequences/Nanopore/Unicycler_assembly_Q6")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Unicycler_assembly_Q6")
     params:
         script="run_unicycler_N.sh"
     shell:
@@ -40,9 +40,9 @@ rule unicycler_assemblies:
 
 rule canu_assembly:
     input:
-        nanopore_dir="/mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming_Q10"
+        nanopore_dir="/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Fastplong_trimming_Q10"
     output:
-        directory("/mnt/d/Documentos/Sequences/Nanopore/Canu_assembly_Q10")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Canu_assembly_Q10")
     params:
         script="run_canu.sh"
     shell:
@@ -50,9 +50,9 @@ rule canu_assembly:
 
 rule flye_assembly:
     input:
-        nanopore_dir="/mnt/d/Documentos/Sequences/Nanopore/Fastplong_trimming_Q10"
+        nanopore_dir="/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Fastplong_trimming_Q10"
     output:
-        directory("/mnt/d/Documentos/Sequences/Nanopore/Flye_assembly_Q10")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Flye_assembly_Q10")
     params:
         script="run_flye.sh"
     shell:
@@ -60,9 +60,9 @@ rule flye_assembly:
 
 rule blastn:
     input:
-        fasta_dir="/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Canu_Q10"
+        fasta_dir="/mnt/c/Users/Carlos/Documents/Documents/Sequences/Nanopore/Canu_Q10"
     output:
-        directory("/mnt/c/Users/Carlos/Documents/Sequences/Nanopore/Blast_results")
+        directory("/mnt/c/Users/Carlos/Documents/Documents/Sequences/Nanopore/Blast_results")
     params:
         script="run_blastn.sh"
     shell:

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script runs Unicycler for hybrid assembly using Illumina and Nanopore reads.
+
 input_dir_illumina=$1 # Directory containing Illumina reads
 input_dir_nanopore=$2 # Directory containing Nanopore reads
 output_dir=$3 # Directory to store Unicycler output

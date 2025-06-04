@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script runs bcftools stats on VCF files and generates plots using plot-vcfstats.
+
 vcf_dir=$1     # Directory with VCF files
 ref_dir=$2     # Directory with hybrid reference FASTAs
 output_dir=$3  # Output directory for stats

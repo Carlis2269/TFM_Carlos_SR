@@ -1,5 +1,9 @@
 
-# Cargar las librerías necesarias
+# This script generates a gggenomes plot to visualize the alignments of ONT and Illumina sequences against hybrid sequences.
+# It reads the sequence data and alignment results, processes them, and creates a plot with gggenomes.
+
+# Load necessary libraries
+
 library(gggenomes)
 library(dplyr)
 library(forcats)
@@ -7,61 +11,62 @@ library(readr)
 library(viridis)
 library(svglite)
 
-# Cargar las secuencias de las 12 muestras (ajustando los nombres de los archivos)
+# Function to read sequences from a FASTA file
 
-seqs_Illumina_S2 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Illumina_assembly_S2.fasta")
-seqs_ONT_S2 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/ONT_assembly_S2.fasta")
-seqs_Hybrid_S2 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Hybrid_assembly_S2.fasta")
+seqs_Illumina_S2 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Illumina_assembly_S2.fasta")
+seqs_ONT_S2 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/ONT_assembly_S2.fasta")
+seqs_Hybrid_S2 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Hybrid_assembly_S2.fasta")
 
-seqs_Illumina_S8 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Illumina_assembly_S8.fasta")
-seqs_ONT_S8 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/ONT_assembly_S8.fasta")
-seqs_Hybrid_S8 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Hybrid_assembly_S8.fasta")
+seqs_Illumina_S8 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Illumina_assembly_S8.fasta")
+seqs_ONT_S8 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/ONT_assembly_S8.fasta")
+seqs_Hybrid_S8 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Hybrid_assembly_S8.fasta")
 
-seqs_Illumina_S12 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Illumina_assembly_S12.fasta")
-seqs_ONT_S12 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/ONT_assembly_S12.fasta")
-seqs_Hybrid_S12 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Hybrid_assembly_S12.fasta")
+seqs_Illumina_S12 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Illumina_assembly_S12.fasta")
+seqs_ONT_S12 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/ONT_assembly_S12.fasta")
+seqs_Hybrid_S12 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Hybrid_assembly_S12.fasta")
 
-seqs_Illumina_S15 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Illumina_assembly_S15.fasta")
-seqs_ONT_S15 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/ONT_assembly_S15.fasta")
-seqs_Hybrid_S15 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Hybrid_assembly_S15.fasta")
+seqs_Illumina_S15 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Illumina_assembly_S15.fasta")
+seqs_ONT_S15 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/ONT_assembly_S15.fasta")
+seqs_Hybrid_S15 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Hybrid_assembly_S15.fasta")
 
-seqs_Illumina_S19 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Illumina_assembly_S19.fasta")
-seqs_ONT_S19 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/ONT_assembly_S19.fasta")
-seqs_Hybrid_S19 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Hybrid_assembly_S19.fasta")
+seqs_Illumina_S19 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Illumina_assembly_S19.fasta")
+seqs_ONT_S19 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/ONT_assembly_S19.fasta")
+seqs_Hybrid_S19 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Hybrid_assembly_S19.fasta")
 
-seqs_Illumina_S21 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Illumina_assembly_S21.fasta")
-seqs_ONT_S21 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/ONT_assembly_S21.fasta")
-seqs_Hybrid_S21 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Hybrid_assembly_S21.fasta")
+seqs_Illumina_S21 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Illumina_assembly_S21.fasta")
+seqs_ONT_S21 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/ONT_assembly_S21.fasta")
+seqs_Hybrid_S21 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Hybrid_assembly_S21.fasta")
 
-seqs_Illumina_S22 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Illumina_assembly_S22.fasta")
-seqs_ONT_S22 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/ONT_assembly_S22.fasta")
-seqs_Hybrid_S22 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Hybrid_assembly_S22.fasta")
+seqs_Illumina_S22 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Illumina_assembly_S22.fasta")
+seqs_ONT_S22 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/ONT_assembly_S22.fasta")
+seqs_Hybrid_S22 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Hybrid_assembly_S22.fasta")
 
-seqs_Illumina_S22 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Illumina_assembly_S22.fasta")
-seqs_ONT_S22 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/ONT_assembly_S22.fasta")
-seqs_Hybrid_S22 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Hybrid_assembly_S22.fasta")
+seqs_Illumina_S22 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Illumina_assembly_S22.fasta")
+seqs_ONT_S22 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/ONT_assembly_S22.fasta")
+seqs_Hybrid_S22 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Hybrid_assembly_S22.fasta")
 
-seqs_Illumina_S24 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Illumina_assembly_S24.fasta")
-seqs_ONT_S24 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/ONT_assembly_S24.fasta")
-seqs_Hybrid_S24 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Hybrid_assembly_S24.fasta")
+seqs_Illumina_S24 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Illumina_assembly_S24.fasta")
+seqs_ONT_S24 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/ONT_assembly_S24.fasta")
+seqs_Hybrid_S24 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Hybrid_assembly_S24.fasta")
 
-seqs_Illumina_S25 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Illumina_assembly_S25.fasta")
-seqs_ONT_S25 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/ONT_assembly_S25.fasta")
-seqs_Hybrid_S25 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Hybrid_assembly_S25.fasta")
+seqs_Illumina_S25 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Illumina_assembly_S25.fasta")
+seqs_ONT_S25 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/ONT_assembly_S25.fasta")
+seqs_Hybrid_S25 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Hybrid_assembly_S25.fasta")
 
-seqs_Illumina_S28 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Illumina_assembly_S28.fasta")
-seqs_ONT_S28 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/ONT_assembly_S28.fasta")
-seqs_Hybrid_S28 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Hybrid_assembly_S28.fasta")
+seqs_Illumina_S28 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Illumina_assembly_S28.fasta")
+seqs_ONT_S28 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/ONT_assembly_S28.fasta")
+seqs_Hybrid_S28 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Hybrid_assembly_S28.fasta")
 
-seqs_Illumina_S31 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Illumina_assembly_S31.fasta")
-seqs_ONT_S31 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/ONT_assembly_S31.fasta")
-seqs_Hybrid_S31 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Hybrid_assembly_S31.fasta")
+seqs_Illumina_S31 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Illumina_assembly_S31.fasta")
+seqs_ONT_S31 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/ONT_assembly_S31.fasta")
+seqs_Hybrid_S31 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Hybrid_assembly_S31.fasta")
 
-seqs_Illumina_S44 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Illumina_assembly_S44.fasta")
-seqs_ONT_S44 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/ONT_assembly_S44.fasta")
-seqs_Hybrid_S44 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment/Hybrid_assembly_S44.fasta")
+seqs_Illumina_S44 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Illumina_assembly_S44.fasta")
+seqs_ONT_S44 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/ONT_assembly_S44.fasta")
+seqs_Hybrid_S44 <- read_seqs("C:/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered/Hybrid_assembly_S44.fasta")
 
-# Unir todas las secuencias en un solo objeto
+# Combine all sequences into a single data frame
+
 seqs <- bind_rows(
   seqs_Illumina_S2, seqs_ONT_S2, seqs_Hybrid_S2,
   seqs_Illumina_S8, seqs_ONT_S8, seqs_Hybrid_S8,
@@ -77,14 +82,15 @@ seqs <- bind_rows(
   seqs_Illumina_S44, seqs_ONT_S44, seqs_Hybrid_S44
 )
 
-# Leer los resultados de BLAST
-links <- read_tsv("C:/Users/Carlos/Documents/Sequences/Alignments/Blast_results/blast_vs_hybrid_all.out", col_names = TRUE)
+# Read the links (alignment results) from a TSV file
 
-# Renombrar las columnas de los enlaces
+links <- read_tsv("C:/Users/Carlos/Documents/Sequences/Alignments/Blast_results_reordered/blast_vs_hybrid_all.out", col_names = TRUE)
+
+# Ensure the links data has the correct column names
 colnames(links) <- c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen",
                      "qstart", "qend", "sstart", "send", "evalue", "bitscore")
 
-# Asegurar que los nombres de seq_id coinciden con los de `seqs`
+# Process the links data to prepare it for gggenomes
 
 links_gg <- links %>%
   mutate(
@@ -123,13 +129,12 @@ links_gg <- links %>%
     start2 = sstart2,
     end2 = send2
   ) %>%
-  filter(grepl("Hybrid", seq_id2))  # Filtro por Hybrid
+  filter(grepl("Hybrid", seq_id2)) 
 
-# Limpiar y crear columnas auxiliares en `seqs`
-
+# Prepare the sequences data for gggenomes
 seqs <- seqs %>%
   mutate(
-    file_id = gsub(".fasta", "", file_id),
+    file_id = gsub(".fasta", "", file_id), 
     genome = file_id,
     sample = case_when(
       grepl("S44", genome) ~ "S44",
@@ -154,8 +159,7 @@ seqs <- seqs %>%
     )
   )
 
-# Forzar el orden deseado en el eje Y (para cada muestra)
-
+# Ensure the seqs data has the correct column names for gggenomes
 seqs <- seqs %>%
   mutate(seq_label = case_when(
     grepl("Illumina", genome) ~ "Illumina",
@@ -168,25 +172,7 @@ seqs <- seqs %>%
   arrange(sample, factor(tech, levels = c("Illumina", "Hybrid", "ONT"))) %>%
   mutate(seq_id = factor(file_id, levels = unique(file_id)))
 
-# Crear el gráfico
-p <- gggenomes(seqs = seqs, links = links_gg, adjacent_only = FALSE) +
-  geom_seq(aes(color = tech)) +
-  geom_seq_label(aes(label = seq_label), size = 3) +
-  geom_link(aes(color = tech)) +
-  facet_wrap(~sample, scales = "free_y", ncol = 1) +
-  scale_color_viridis_d(option = "B", begin = 0.2, end = 0.8) +
-  scale_fill_viridis_d(option = "B", begin = 0.2, end = 0.8) +
-  theme_minimal(base_size = 12) +
-  theme(
-    axis.text.y = element_blank(),
-    axis.ticks.y = element_blank(),
-    strip.text = element_text(face = "bold", size = 12)
-  ) +
-  labs(
-    title = "ONT and Illumina alignments against hybrid sequence",
-    x = "Genome lenght",
-    y = NULL
-  )
+# Create the gggenomes plot
 
 p <- gggenomes(seqs = seqs, links = links_gg, adjacent_only = FALSE) +
   geom_seq(aes(color = tech), linewidth = 2) +
@@ -201,7 +187,12 @@ p <- gggenomes(seqs = seqs, links = links_gg, adjacent_only = FALSE) +
   theme(
     axis.text.y = element_blank(),
     axis.ticks.y = element_blank(),
-    strip.text = element_text(face = "bold", size = 12)
+    axis.title.x = element_text(size = 25, face = "bold"),
+    axis.title.y = element_text(size = 25, face = "bold"),
+    legend.text = element_text(size = 20),
+    legend.title = element_text(size = 25, face = "bold"),
+    plot.title = element_text(size = 35, face = "bold", hjust = 0.5),
+    strip.text = element_text(face = "bold", size = 20)
   ) +
   labs(
     title = "ONT and Illumina alignments against hybrid sequence",
@@ -209,32 +200,7 @@ p <- gggenomes(seqs = seqs, links = links_gg, adjacent_only = FALSE) +
     y = NULL
   )
 
-p <- gggenomes(seqs = seqs, links = links_gg, adjacent_only = FALSE) +
-  geom_seq(aes(color = tech)) +
-  geom_seq_label(aes(label = seq_label), size = 3) +
-  geom_link(aes(fill = tech), color = NA, alpha = 0.6) + 
-  facet_wrap(~sample, scales = "free_y", ncol = 1) +
-  scale_color_viridis_d(
-    name = "Tecnología",
-    option = "B", begin = 0.2, end = 0.8
-  ) +
-  scale_fill_viridis_d(
-    name = "Tecnología",
-    option = "B", begin = 0.2, end = 0.8
-  ) +
-  theme_minimal(base_size = 12) +
-  theme(
-    axis.text.y = element_blank(),
-    axis.ticks.y = element_blank(),
-    strip.text = element_text(face = "bold", size = 12)
-  ) +
-  labs(
-    title = "Alineamientos de ensamblados ONT e Illumina frente a híbrido",
-    x = "Posición genómica",
-    y = NULL
-  )
-
-# Guardar el gráfico como SVG
+# Save the plot as an SVG file
 ggsave(
   file.path("C:/Users/Carlos/Documents/Sequences/Alignments/", "gggenomes_alignments_fill.svg"),
   plot = p,

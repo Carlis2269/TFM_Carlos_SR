@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Invoquing Prokka for genome annotation in Moderate
+# This script runs Prokka for genome annotation in Moderate mode.
 
 input_dir=$1 # Input directory containing FASTA files
 output_dir=$2 # Output directory for Prokka results

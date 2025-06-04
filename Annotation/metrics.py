@@ -1,47 +1,49 @@
+# This script calculates the number of CDS and hypothetical proteins from .gff files
+
 import os
 import csv
 
-# Directorio base donde se encuentran las carpetas de los anotadores
+# Base directory where the annotator folders are located
 base_dir = "/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Results"
 
-# Listado de los anotadores
+# List of annotators
 annotators = ["Pharokka", "Phold", "Prokka"]
 
-# Lista para almacenar los registros
+# List to store the records
 records = []
 
-# Iterar por cada anotador y archivo .gff correspondiente
-for annotator in annotators: # Iterar por cada anotador
-    annotator_dir = os.path.join(base_dir, annotator) # Directorio del anotador
-    for file in os.listdir(annotator_dir): # Listar archivos en el directorio del anotador
-        if file.endswith(".gff"):  
-            genome = os.path.splitext(file)[0]  # Extraemos el nombre del genoma
-            filepath = os.path.join(annotator_dir, file) # Ruta completa del archivo .gff
+# Iterate over each annotator and its corresponding .gff files
+for annotator in annotators:  # Loop through each annotator
+    annotator_dir = os.path.join(base_dir, annotator)  # Construct the path to the annotator's directory
+    for file in os.listdir(annotator_dir):  # List all files in the annotator's directory
+        if file.endswith(".gff"):
+            genome = os.path.splitext(file)[0]  # Extract genome name from the file name
+            filepath = os.path.join(annotator_dir, file)  # Construct the full path to the .gff file
 
-            total_cds = 0 # Contador de CDS
-            hypo_count = 0  # Contador de proteínas hipotéticas
+            total_cds = 0  # CDS counter
+            hypo_count = 0  # Hypothetical protein counter
 
-            with open(filepath) as f: # Abrir el archivo .gff
-                for line in f: # Leer línea por línea
-                    if line.startswith("#"): # Ignorar líneas de comentario
+            with open(filepath) as f:  # Open the .gff file
+                for line in f:  # Iterate through each line in the file
+                    if line.startswith("#"):  # Skip comment lines
                         continue
-                    fields = line.strip().split("\t") # Dividir la línea en campos (columnas)
-                    if len(fields) < 9: # Asegurarse de que hay suficientes columnas (mínimo 9)
+                    fields = line.strip().split("\t")  # Split the line into fields using tab as a delimiter
+                    if len(fields) < 9:  # Check if there are enough fields
                         continue
-                    feature = fields[2].lower()  # Extrae la característica de la tercera columna (Debería ser "CDS")
-                    attributes = fields[8].lower()  # Extrae los atributos de la novena columna
+                    feature = fields[2].lower()  # Get feature from the third column
+                    attributes = fields[8].lower()  # Get attributes from the ninth column
 
-                    if feature == "cds": # Verifica si la característica es "CDS"
-                        total_cds += 1 # Incrementa el contador de CDS
-                        if ("hypothetical protein" in attributes) or ("product=hypothetical" in attributes): # Verifica si es una proteína hipotética
-                            hypo_count += 1 # Incrementa el contador de proteínas hipotéticas
+                    if feature == "cds":  # Check if the feature is CDS
+                        total_cds += 1  # Increment CDS counter
+                        if ("hypothetical protein" in attributes) or ("product=hypothetical" in attributes):  # Check for hypothetical protein
+                            hypo_count += 1  # Increment hypothetical protein counter
 
-            if total_cds > 0: # Evita la división por cero
-                hypo_pct = 100 * hypo_count / total_cds  # Calcula el porcentaje de proteínas hipotéticas
-            else: # Si no hay CDS, el porcentaje de proteínas hipotéticas es 0
-                hypo_pct = 0.0
+            if total_cds > 0:  # If there are CDS entries, calculate the percentage
+                hypo_pct = 100 * hypo_count / total_cds  # Calculate the percentage of hypothetical proteins
+            else:  # If there are no CDS entries
+                hypo_pct = 0.0 # Set percentage to 0.0
 
-            # Agregar los resultados a la lista de registros
+            # Store the results in a dictionary
             records.append({
                 "Genome": genome,
                 "Annotator": annotator,
@@ -50,13 +52,11 @@ for annotator in annotators: # Iterar por cada anotador
                 "Hypothetical_%": hypo_pct
             })
 
-# Guardar los resultados en un archivo CSV
-output_csv = "/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Results/summary_cds.csv" # Ruta de salida del CSV
-os.makedirs(os.path.dirname(output_csv), exist_ok=True) # Crear el directorio si no existe
+# Save the results to a CSV file
+output_csv = "/mnt/c/Users/Carlos/Documents/Sequences/Annotation/Results/summary_cds.csv"  # Output CSV file path
+os.makedirs(os.path.dirname(output_csv), exist_ok=True)  # Ensure the output directory exists
 
-with open(output_csv, mode="w", newline='') as file: # Abrir el archivo CSV para escritura
-    writer = csv.DictWriter(file, fieldnames=["Genome", "Annotator", "CDS_Count", "Hypothetical_Count", "Hypothetical_%"]) # Crear un escritor de CSV
-    writer.writeheader() # Escribir la cabecera
-    writer.writerows(records) # Escribir los registros
-
-print(f"Metrics have been written to {output_csv}") # Mensaje de confirmación
+with open(output_csv, mode="w", newline='') as file:  # Open the output CSV file for writing
+    writer = csv.DictWriter(file, fieldnames=["Genome", "Annotator", "CDS_Count", "Hypothetical_Count", "Hypothetical_%"])  # Create a CSV writer object
+    writer.writeheader()  # Write the header row
+    writer.writerows(records)  # Write all records to the CSV file

@@ -21,9 +21,9 @@ rule blastn:
 
 rule dnaapler_phage:
     input:
-        fasta_dir="/mnt/d/Documentos/Sequences/Alignments/Seq_4_alignment"
+        fasta_dir="/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment"
     output:
-        directory("/mnt/d/Documentos/Sequences/Alignments/Dnaapler_reordered")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Dnaapler_reordered")
     params:
         script="run_dnaapler.sh"
     shell:
@@ -31,9 +31,9 @@ rule dnaapler_phage:
 
 rule blast_vs_hybrid:
     input:
-        fasta_dir="/mnt/d/Documentos/Sequences/Alignments/Seq_4_alignment_reordered"
+        fasta_dir="/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered"
     output:
-        directory("/mnt/d/Documentos/Sequences/Alignments/Blast_results_reordered")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Blast_results_reordered")
     params:
         script="run_blastn_ref.sh"
     shell:
@@ -41,9 +41,9 @@ rule blast_vs_hybrid:
 
 rule minimap_alignment:
     input:
-        fasta_dir="/mnt/d/Documentos/Sequences/Alignments/Seq_4_alignment_reordered"
+        fasta_dir="/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered"
     output:
-        directory("/mnt/d/Documentos/Sequences/Alignments/Minimap_alignment_reordered")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Minimap_alignment_reordered")
     params:
         script="run_minimap.sh"
     shell:
@@ -51,10 +51,10 @@ rule minimap_alignment:
 
 rule bcftools_vcf:
     input:
-        bam_dir="/mnt/d/Documentos/Sequences/Alignments/Minimap_alignment_reordered",
-        ref_dir="/mnt/d/Documentos/Sequences/Alignments/Seq_4_alignment_reordered"
+        bam_dir="/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Minimap_alignment_reordered",
+        ref_dir="/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered"
     output:
-        directory("/mnt/d/Documentos/Sequences/Alignments/Variants_and_Coverage_reordered")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Variants_and_Coverage_reordered")
     params:
         script="run_bcf_sam_tools.sh"
     shell:
@@ -62,10 +62,10 @@ rule bcftools_vcf:
 
 rule vcf_stats:
     input:
-        vcf_dir="/mnt/d/Documentos/Sequences/Alignments/Variants_and_Coverage_reordered/Variants",
-        ref_dir="/mnt/d/Documentos/Sequences/Alignments/Seq_4_alignment_reordered"
+        vcf_dir="/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Variants_and_Coverage_reordered/Variants",
+        ref_dir="/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Seq_4_alignment_reordered"
     output:
-        directory("/mnt/d/Documentos/Sequences/Alignments/VCF_Stats")
+        directory("/mnt/c/Users/Carlos/Documents/Sequences/Alignments/VCF_Stats")
     params:
         script="run_vcfstats.sh"
     shell:
@@ -73,10 +73,10 @@ rule vcf_stats:
 
 rule vcf_metrics:
     input:
-        vcf_dir="/mnt/d/Documentos/Sequences/Alignments/VCF_Stats",
-        coverage_dir="/mnt/d/Documentos/Sequences/Alignments/Variants_and_Coverage_reordered/Coverage"
+        vcf_dir="/mnt/c/Users/Carlos/Documents/Sequences/Alignments/VCF_Stats",
+        coverage_dir="/mnt/c/Users/Carlos/Documents/Sequences/Alignments/Variants_and_Coverage_reordered/Coverage"
     output:
-        "/mnt/d/Documentos/Sequences/Alignments/vcf_metrics.csv"
+        "/mnt/c/Users/Carlos/Documents/Sequences/Alignments/vcf_metrics.csv"
     params:
         script="vcf_metrics.py"
     shell:

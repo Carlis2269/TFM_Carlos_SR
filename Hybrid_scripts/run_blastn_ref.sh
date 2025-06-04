@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script performs BLASTN searches between hybrid assembly files and other FASTA files in a specified directory.
+
 input_fasta=$1 # Directory containing the input FASTA files
 output_dir=$2 # Directory to store the output files
 mkdir -p "$output_dir" # Create output directory if it doesn't exist

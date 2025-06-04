@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script runs Canu for assembly of nanopore reads.
+
 input_dir=$1 # Directory containing trimmed fastq files
 output_dir=$2 # Directory to store the assembly results
 mkdir -p "$output_dir" # Create the output directory if it doesn't exist

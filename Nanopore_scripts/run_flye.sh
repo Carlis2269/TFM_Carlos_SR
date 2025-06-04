@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script performs automated assembly of nanopore reads using Flye.
+
 input_dir=$1
 output_dir=$2
 mkdir -p "$output_dir"
